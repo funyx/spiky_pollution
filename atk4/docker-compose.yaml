@@ -1,0 +1,37 @@
+services:
+  web:
+    build:
+      dockerfile: ./docker/php/Dockerfile
+      context: .
+    networks:
+      - atk4
+    volumes:
+      - ./:/var/www/html
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    ports:
+      - '${APP_PORT:-80}:80'
+  mysql:
+    build:
+      dockerfile: Dockerfile
+      context: ./docker/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    networks:
+      - atk4
+    ports:
+      - 3306:3306
+    volumes:
+      - 'mysql:/var/lib/mysql'
+      - './docker/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+networks:
+  atk4:
+    driver: bridge
+volumes:
+  mysql:
+    driver: local

@@ -1,0 +1,22 @@
+{
+    "name": "spiky_pollution/atk4",
+    "type": "project",
+    "license": "APACHE 2.0",
+    "autoload": {
+        "psr-4": {
+            "SpikyPollution\\Atk4\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Dimitar Dobchev",
+            "email": "ddobchev@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "atk4/ui": "^4.0",
+        "vlucas/phpdotenv": "^5.5",
+        "robmorgan/phinx": "^0.13.4"
+    }
+}
